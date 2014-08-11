@@ -24,21 +24,25 @@ def Dijkstra(Graph, source):
             previous[v] = float("nan")
         Q.append(v)
 
-    while len(Q) != 0:
+    finish = False
+    while len(Q) != 0 and not(finish):
         u = MinDist(Q, dist, source)
-        Q.remove(u)
-        for v in Neighbors(Graph, u):
-            alt = dist[u] + Graph[u][v]
-
-            if alt < dist[v]:
-                dist[v] = alt
-                previous[v] = u
+        if u < n_nodes:
+            Q.remove(u)
+            for v in Neighbors(Graph, u):
+                alt = dist[u] + Graph[u][v]
+    
+                if alt < dist[v]:
+                    dist[v] = alt
+                    previous[v] = u
+        else:
+            finish = True
             
     return dist, previous
 
 def Neighbors(Graph, u):
     n = len(Graph)
-    u_row = graph[u]
+    u_row = Graph[u]
     u_neighbors = []
 
     for i in range(len(u_row)):
@@ -58,20 +62,29 @@ def MinDist(Q, dist, source):
         dist_copy.append(d)
     dist_copy = np.array(dist_copy)
     
-    while not found:
+    while not found and i < len(dist):
         i += 1
         
         if np.where(dist_copy == dist_copy.min())[0][0] == i\
            and i in Q:
             found = True
         else:
-            dist_copy[i] = VERY_BIG_NUMBER
-        
+            try:
+                dist_copy[i] = VERY_BIG_NUMBER
+            except IndexError:
+                break
+    
+
     return i
 
-# A sample network for testing
-graph = [[  0,  2,  8,  5,INF],\
+# Sample networks for testing
+graph1 = [[  0,  2,  8,  5,INF],\
          [INF,  0,  1,INF,INF],\
          [INF,INF,  0,INF,  3],\
          [INF,INF,INF,  0,  4],\
          [INF,INF,INF,INF,  0]]
+
+graph2 = [[  0,  1,INF,INF],\
+          [INF,  0,  3,INF],\
+          [INF,INF,  0,  2],\
+          [INF,INF,INF,  0]]
