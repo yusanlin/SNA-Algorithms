@@ -8,6 +8,7 @@ Dijkstra.py
 import numpy as np
 
 VERY_BIG_NUMBER = 1000000
+INF = float("inf")
 
 def Dijkstra(Graph, source):
     n_nodes = len(Graph)
@@ -19,7 +20,7 @@ def Dijkstra(Graph, source):
 
     for v in range(n_nodes):
         if v != source:
-            dist[v] = float("inf")
+            dist[v] = INF
             previous[v] = float("nan")
         Q.append(v)
 
@@ -41,7 +42,7 @@ def Neighbors(Graph, u):
     u_neighbors = []
 
     for i in range(len(u_row)):
-        if u_row[i] != float("inf") and u_row[i] != 0:
+        if u_row[i] != INF and u_row[i] != 0:
             u_neighbors.append(i)
 
     return u_neighbors
@@ -68,8 +69,9 @@ def MinDist(Q, dist, source):
         
     return i
 
-graph = [[0,2,8,5,float("inf")],\
-         [float("inf"),0,1,float("inf"),float("inf")],\
-         [float("inf"),float("inf"),0,float("inf"),3],\
-         [float("inf"),float("inf"),float("inf"),0,4],\
-         [float("inf"),float("inf"),float("inf"),float("inf"),0]]
+# A sample network for testing
+graph = [[  0,  2,  8,  5,INF],\
+         [INF,  0,  1,INF,INF],\
+         [INF,INF,  0,INF,  3],\
+         [INF,INF,INF,  0,  4],\
+         [INF,INF,INF,INF,  0]]
