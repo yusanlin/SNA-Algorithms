@@ -52,13 +52,6 @@ def MinDist(Q, dist, source):
 
     found = False
     
-    """
-    dist_no_source = []
-    for d in dist:
-        dist_no_source.append(d)
-    dist_no_source[source] = float("inf")
-    dist_no_source_np = np.array(dist_no_source)
-    """
     dist_copy = []
     for d in dist:
         dist_copy.append(d)
